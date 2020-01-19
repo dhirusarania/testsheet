@@ -1,6 +1,7 @@
 
 export default {
   mode: 'universal',
+  loading: '~/components/loader.vue',
   /*
   ** Headers of the page
   */
@@ -13,6 +14,16 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [
+      {
+        src: "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js",
+        type: "text/javascript"
+      },
+      {
+        src: "https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js",
+        type: "text/javascript"
+      },
     ]
   },
   /*
@@ -23,11 +34,16 @@ export default {
   ** Global CSS
   */
   css: [
+    "~static/css/framework.css"
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/PerfectScrollbar', lang: 'js' },
+    { src: '~/plugins/goodtable', lang: 'js' },
+    { src: "~plugins/quill-editor.js", ssr: false },
+    // { src: '~/plugins/loader', lang: 'js' },
   ],
   /*
   ** Nuxt.js dev-modules
@@ -41,6 +57,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    'cookie-universal-nuxt'
   ],
   /*
   ** Axios module configuration
@@ -55,7 +72,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+    extend(config, ctx) {
     }
   }
 }
