@@ -43,6 +43,21 @@
                 <p class="white-text padding-top-15"></p>
               </div>
             </form>
+            <div>
+              <div id="paymentContainer" name="paymentContainer" class="paymentOptions">
+                <div id="payCC" class="floatBlock">
+                  <label for="paymentCC">
+                    <input id="paymentCC" name="paymentType" type="radio" v-model="userType" value="sys" /> System Admin
+                  </label>
+                </div>
+
+                <div id="payInvoice" class="floatBlock">
+                  <label for="paymentInv">
+                    <input id="paymentInv" name="paymentType" type="radio" v-model="userType" value="dataEntry" /> Freelancer
+                  </label>
+                </div>
+              </div>
+            </div>
             <div class="row">
               <div class="col s12">
                 <p class="white-text padding-top-15">Forgot Password</p>
@@ -74,6 +89,7 @@ export default {
       loading: false,
       username: "",
       password: "",
+      userType: "sys",
       isPasswordVisible: 0
     };
   },
@@ -118,7 +134,7 @@ export default {
       const params = {
         username: this.username,
         password: this.password,
-        userType: "dataEntry"
+        userType: this.userType
       };
 
       axios({
@@ -392,5 +408,31 @@ input.material-input:focus + label.material-input {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Opera and Firefox */
+}
+
+label {
+  display: block;
+  color: white;
+}
+
+.floatBlock {
+  margin: 0 1.81em 0 0;
+}
+
+.labelish {
+  color: white;
+  margin: 0;
+}
+
+.paymentOptions {
+  border: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  break-before: always;
+}
+
+#purchaseOrder {
+  margin: 0 0 2em 0;
 }
 </style>

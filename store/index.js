@@ -130,14 +130,14 @@ export const actions = {
 
             axios({
                 method: 'GET',
-                url: state.api.apiSubject + this.$cookies.get('class') + "/" + this.$cookies.get('subject_id'),
+                url: state.api.apiSubject + this.$cookies.get('subject_id') + "/" + this.$cookies.get('class'),
                 contentType: 'application/json',
                 headers: {
                     'Authorization': "Bearer " + this.$cookies.get('access_token')
                 }
             })
                 .then(res => {
-                    commit('chapters', res.data)
+                    commit('chapters', res.data.List)
                     resolve(res)
                 })
                 .catch((error) => {
@@ -147,13 +147,15 @@ export const actions = {
         })
     },
 
-    createChapters({ commit, state }, payload) {
+    createChapters({ commit, state }, payload ) {
 
         return new Promise((resolve, reject) => {
 
+            console.log(payload)
+
             axios({
                 method: 'POST',
-                url: state.api.apiSubject + this.$cookies.get('class') + "/" + this.$cookies.get('subject_id'),
+                url: state.api.apiSubject + this.$cookies.get('subject_id') + "/" + this.$cookies.get('class'),
                 contentType: 'application/json',
                 data: payload,
                 headers: {
@@ -161,7 +163,6 @@ export const actions = {
                 }
             })
                 .then(res => {
-                    commit('chapters', res.data)
                     resolve(res)
                 })
                 .catch((error) => {
