@@ -45,6 +45,7 @@ export const state = () => ({
     isLoggedIn: 0,
     allSubjects: [],
     chapters: [],
+    allQuestions: [],
 
 
 
@@ -64,6 +65,9 @@ export const mutations = {
 
     chapters(state, chapters) {
         state.chapters = chapters
+    },
+    allQuestions(state, allQuestions) {
+        state.allQuestions = allQuestions
     },
 }
 
@@ -124,6 +128,30 @@ export const actions = {
         })
     },
 
+    getAllQuestions({ commit, state }) {
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                method: 'GET',
+                url: state.api.allQuestions + this.$cookies.get('chapter_id') + "?limit=10&offset=0",
+                contentType: 'application/json',
+                headers: {
+                    'Authorization': "Bearer " + this.$cookies.get('access_token')
+                }
+            })
+                .then(res => {
+                    console.log(res)
+                    commit('allQuestions', res.data.List)
+                    resolve(res)
+                })
+                .catch((error) => {
+                    console.log(error.response)
+                    reject(error);
+                })
+        })
+    },
+
     getAllChapters({ commit, state }) {
 
         return new Promise((resolve, reject) => {
@@ -147,7 +175,7 @@ export const actions = {
         })
     },
 
-    createChapters({ commit, state }, payload ) {
+    createChapters({ commit, state }, payload) {
 
         return new Promise((resolve, reject) => {
 
@@ -156,6 +184,31 @@ export const actions = {
             axios({
                 method: 'POST',
                 url: state.api.apiSubject + this.$cookies.get('subject_id') + "/" + this.$cookies.get('class'),
+                contentType: 'application/json',
+                data: payload,
+                headers: {
+                    'Authorization': "Bearer " + this.$cookies.get('access_token')
+                }
+            })
+                .then(res => {
+                    resolve(res)
+                })
+                .catch((error) => {
+                    console.log(error.response)
+                    reject(error);
+                })
+        })
+    },
+
+    createQuestion({ commit, state }, payload) {
+
+        return new Promise((resolve, reject) => {
+
+            console.log(payload)
+
+            axios({
+                method: 'POST',
+                url: state.api.allQuestions + this.$cookies.get('chapter_id'),
                 contentType: 'application/json',
                 data: payload,
                 headers: {

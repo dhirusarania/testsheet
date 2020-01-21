@@ -34,10 +34,10 @@
           </span>
           <span v-else-if="props.column.field === 'action'">
             <button
-              @click="addQuestions(props.row.ChapterID)"
+              @click="showChapters(props.row.SubjectID)"
               type="button"
               class="btn btn-primary"
-            >Add Questions</button>
+            >View Topic</button>
           </span>
           <span v-else>{{ props.formattedRow[props.column.field] }}</span>
         </template>
@@ -64,7 +64,7 @@ export default {
           width: "100px"
         },
         {
-          label: "Chapter ID",
+          label: "Subject ID",
           field: "ChapterID",
           width: "300px"
         },
@@ -90,24 +90,30 @@ export default {
     this.$store.dispatch("getAllChapters");
   },
   methods: {
-    addQuestions: function(id) {
-      this.$cookies.set("chapter_id", id, {
+    showChapters: function(id) {
+      this.$cookies.set("subject_id", id, {
         path: "/",
         maxAge: 60 * 60 * 24 * 7
       });
 
-      this.$router.push("/dashboard/classes/subjects/chapters/questions");
+      this.$router.push("/dashboard/classes/subjects/chapters");
     },
     createChapter: function(id) {
-      var payload = {
-        chapterNumber: parseInt(this.chapterno),
-        chapterName: this.chaptername
-      };
 
-      this.$store.dispatch("createChapters", payload).then(res => {
-        this.$store.dispatch("getAllChapters");
-        this.closeDropdownPanel();
-      });
+        var payload = {
+            chapterNumber : parseInt(this.chapterno),
+            chapterName : this.chaptername
+        }
+        
+        console.log(payload)
+
+            this.$store.dispatch('createChapters' , payload).then( res => {
+
+                    this.$store.dispatch("getAllChapters");
+
+            })
+
+
     },
     openDropdownPanel: function() {
       this.showDropdown = true;
@@ -118,82 +124,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.popup {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 99;
-}
-
-.popup-main {
-  background-color: white;
-  margin: auto;
-  position: absolute;
-  max-width: 400px;
-  height: 350px;
-  left: 260px;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 1;
-  border-radius: 5px;
-}
-
-.popup-body {
-  height: 300px;
-  overflow: auto;
-  padding: 30px;
-}
-
-.popup-title {
-  padding: 15px 30px 10px;
-  border-bottom: 1px solid #00000024;
-}
-.popup-action {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  box-shadow: 0px -7px 10px 0px #0000000d;
-}
-
-.popup:after {
-  background-color: rgba(0, 0, 0, 0.83);
-  margin: auto;
-  position: absolute;
-  content: "";
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-}
-
-.popup-action .actions {
-  width: 100%;
-  cursor: pointer;
-  padding: 20px 0;
-  text-align: center;
-}
-
-.popup-action .actions.primary {
-  background-color: #f14836;
-  color: white;
-}
-
-.popup-action .actions:nth-child(1) {
-  border-radius: 0 0 0 5px;
-}
-
-.popup-action .actions:only-child {
-  border-radius: 0 0 5px 5px;
-}
-
-.popup-action .actions:nth-child(n + 2) {
-  border-left: 1px solid #cecece;
-}
-</style>

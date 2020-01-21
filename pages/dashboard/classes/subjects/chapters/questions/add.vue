@@ -29,7 +29,14 @@
         <div class="form-control options">
           <label>Answer</label>
 
-          <input class="inp-cbx" id="a" value="A" type="radio" v-model="answer" style="display: none;" />
+          <input
+            class="inp-cbx"
+            id="a"
+            value="A"
+            type="radio"
+            v-model="answer"
+            style="display: none;"
+          />
           <label class="cbx" for="a">
             <span>
               <svg width="12px" height="9px" viewBox="0 0 12 9">
@@ -39,7 +46,14 @@
             <span>Option A</span>
           </label>
 
-          <input class="inp-cbx" id="b" v-model="answer" value="B" type="radio" style="display: none;" />
+          <input
+            class="inp-cbx"
+            id="b"
+            v-model="answer"
+            value="B"
+            type="radio"
+            style="display: none;"
+          />
           <label class="cbx" for="b">
             <span>
               <svg width="12px" height="9px" viewBox="0 0 12 9">
@@ -49,7 +63,14 @@
             <span>Option B</span>
           </label>
 
-          <input class="inp-cbx" id="c" type="radio" value="C"  v-model="answer" style="display: none;" />
+          <input
+            class="inp-cbx"
+            id="c"
+            type="radio"
+            value="C"
+            v-model="answer"
+            style="display: none;"
+          />
           <label class="cbx" for="c">
             <span>
               <svg width="12px" height="9px" viewBox="0 0 12 9">
@@ -59,7 +80,14 @@
             <span>Option C</span>
           </label>
 
-          <input class="inp-cbx" id="d" value="D" type="radio"  v-model="answer" style="display: none;" />
+          <input
+            class="inp-cbx"
+            id="d"
+            value="D"
+            type="radio"
+            v-model="answer"
+            style="display: none;"
+          />
           <label class="cbx" for="d">
             <span>
               <svg width="12px" height="9px" viewBox="0 0 12 9">
@@ -71,7 +99,7 @@
         </div>
       </div>
       <div class="mt-5 mb-5">
-        <button class="btn btn-primary">Submit Question</button>
+        <button @click="createQuestion" class="btn btn-primary">Submit Question</button>
       </div>
     </div>
   </div>
@@ -123,6 +151,26 @@ export default {
 
   mounted() {
     this.$store.dispatch("getAllSubjects");
+  },
+  methods: {
+    createQuestion: function() {
+
+
+  
+
+      var payload = {
+        text: this.question,
+        optionA: this.option1,
+        optionB: this.option2,
+        optionC: this.option3,
+        optionD: this.option4,
+        correctAnswer: this.answer
+      };
+
+      this.$store.dispatch("createQuestion", payload).then(res => {
+        this.$store.dispatch("getAllSubjects");
+      });
+    }
   }
 };
 </script>

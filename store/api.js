@@ -13,4 +13,6 @@ export const state = () => ({
 
   apiSubject: url + "subjects/", 
 
+  allQuestions: url + "/textbook/questions/", // chapter_id ?limit=10&offset=0,
+
 });

@@ -158,7 +158,14 @@ export default {
               maxAge: 60 * 60 * 24 * 7
             });
 
-            this.$router.push("/dashboard/subjects");
+            this.$cookies.set("userType", this.userType, {
+              path: "/",
+              // httpOnly : true,
+              // secure: true,
+              maxAge: 60 * 60 * 24 * 7
+            });
+
+            this.$router.push("/dashboard/classes");
           } else {
             alert(res.data.message);
           }

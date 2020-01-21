@@ -277,7 +277,7 @@ p {
 
 .topnav a {
   float: left;
-  color: #f2f2f2;
+  color: #000000;
   text-align: center;
   padding: 20px 10px;
   text-decoration: none;

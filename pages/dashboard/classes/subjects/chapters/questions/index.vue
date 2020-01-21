@@ -2,13 +2,16 @@
   <div class="navbar-spacing padding-top-30">
     <div class="holder">
       <div class="column-padding pb-3" style="display: flex; justify-content: space-between;">
-        <h2 style="display: flex; align-items: center;">All Topic</h2>
-        <button type="button" class="btn btn-primary">+ Add New Subject</button>
+        <h2 style="display: flex; align-items: center;">All Questions</h2>
+        <button type="button" @click="addQuestion" class="btn btn-primary">+ Add New Questions</button>
       </div>
-      <vue-good-table :columns="columns" :line-numbers="true" :rows="allSubjects">
+      <vue-good-table :columns="columns" :line-numbers="true" :rows="allQuestions">
         <template slot="table-row" slot-scope="props">
           <span v-if="props.column.field === 'Name'">
             <p>{{props.row.Name | capitalize}}</p>
+          </span>
+          <span v-else-if="props.column.field === 'Text'">
+            <div v-html="props.row.Text"></div>
           </span>
           <span v-else>{{ props.formattedRow[props.column.field] }}</span>
         </template>
@@ -21,19 +24,25 @@
 import { mapState } from "vuex";
 
 export default {
-  name: "Subjects",
+  name: "Questions",
 
   data() {
     return {
       columns: [
         {
-          label: "Name",
-          field: "Name",
+          label: "QuestionID",
+          field: "QuestionID",
           width: "100px"
         },
         {
-          label: "Subject ID",
-          field: "SubjectID",
+          label: "Text",
+          field: "Text",
+           html: true,
+          width: "300px",
+        },
+        {
+          label: "CorrectAnswer",
+          field: "CorrectAnswer",
           width: "300px"
         },
         {
@@ -52,10 +61,15 @@ export default {
     }
   },
 
-  computed: mapState(["allSubjects"]),
+  computed: mapState(["allQuestions"]),
 
   mounted() {
-    this.$store.dispatch("getAllSubjects");
+    this.$store.dispatch("getAllQuestions");
+  },
+  methods:{
+    addQuestion: function(){
+      this.$router.push('/dashboard/classes/subjects/chapters/questions/add')
+    }
   }
 };
 </script>
