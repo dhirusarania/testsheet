@@ -23,9 +23,14 @@
     </div>
 
     <div class="holder">
+      <div class="breadcrumbs">
+        <nuxt-link to="/dashboard/classes">All Class</nuxt-link>>
+        <nuxt-link to="/dashboard/classes/subjects">{{currentClass}}</nuxt-link>
+        > {{subject_name | capitalize}}
+      </div>
       <div class="column-padding pb-3" style="display: flex; justify-content: space-between;">
         <h2 style="display: flex; align-items: center;">All Chapters</h2>
-        <button type="button" class="btn btn-primary" @click="openDropdownPanel">+ Add New Chapter</button>
+        <button v-if="allowAdd" type="button" class="btn btn-primary" @click="openDropdownPanel">+ Add New Chapter</button>
       </div>
       <vue-good-table :columns="columns" :line-numbers="true" :rows="chapters">
         <template slot="table-row" slot-scope="props">
@@ -34,7 +39,7 @@
           </span>
           <span v-else-if="props.column.field === 'action'">
             <button
-              @click="addQuestions(props.row.ChapterID)"
+              @click="addQuestions(props.row.ChapterID, props.row.ChapterName)"
               type="button"
               class="btn btn-primary"
             >Add Questions</button>
@@ -57,6 +62,7 @@ export default {
       showDropdown: false,
       chapterno: 1,
       chaptername: "",
+      allowAdd :  this.$cookies.get("userType") == 'sys' ? true : false,
       columns: [
         {
           label: "Name",
@@ -73,7 +79,9 @@ export default {
           field: "action",
           width: "200px"
         }
-      ]
+      ],
+      subject_name: this.$cookies.get("subject_name"),
+      currentClass: this.$cookies.get("class")
     };
   },
   filters: {
@@ -88,10 +96,17 @@ export default {
 
   mounted() {
     this.$store.dispatch("getAllChapters");
+
+    this.$cookies.remove("ChapterName");
+    this.$cookies.remove("chapter_id");
   },
   methods: {
-    addQuestions: function(id) {
+    addQuestions: function(id, ChapterName) {
       this.$cookies.set("chapter_id", id, {
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7
+      });
+      this.$cookies.set("ChapterName", ChapterName, {
         path: "/",
         maxAge: 60 * 60 * 24 * 7
       });

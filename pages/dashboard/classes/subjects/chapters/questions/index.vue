@@ -1,6 +1,12 @@
 <template>
   <div class="navbar-spacing padding-top-30">
     <div class="holder">
+      <div class="breadcrumbs">
+        <nuxt-link to="/dashboard/classes">All Class</nuxt-link>>
+        <nuxt-link to="/dashboard/classes/subjects">{{currentClass}}</nuxt-link> >
+        <nuxt-link to="/dashboard/classes/subjects/chapters">{{subject_name | capitalize}}</nuxt-link>
+        > {{currentChapter | capitalize}}
+      </div>
       <div class="column-padding pb-3" style="display: flex; justify-content: space-between;">
         <h2 style="display: flex; align-items: center;">All Questions</h2>
         <button type="button" @click="addQuestion" class="btn btn-primary">+ Add New Questions</button>
@@ -37,8 +43,8 @@ export default {
         {
           label: "Text",
           field: "Text",
-           html: true,
-          width: "300px",
+          html: true,
+          width: "300px"
         },
         {
           label: "CorrectAnswer",
@@ -50,7 +56,10 @@ export default {
           field: "details",
           width: "200px"
         }
-      ]
+      ],
+      subject_name: this.$cookies.get("subject_name"),
+      currentClass: this.$cookies.get("class"),
+      currentChapter: this.$cookies.get("ChapterName")
     };
   },
   filters: {
@@ -66,9 +75,9 @@ export default {
   mounted() {
     this.$store.dispatch("getAllQuestions");
   },
-  methods:{
-    addQuestion: function(){
-      this.$router.push('/dashboard/classes/subjects/chapters/questions/add')
+  methods: {
+    addQuestion: function() {
+      this.$router.push("/dashboard/classes/subjects/chapters/questions/add");
     }
   }
 };

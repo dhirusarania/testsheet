@@ -138,4 +138,14 @@ table.vgt-table td {
   height:17px!important
 }
 
+.nuxt-link-active{
+  color: black;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.breadcrumbs{
+  margin-bottom: 15px
+}
+
 </style>

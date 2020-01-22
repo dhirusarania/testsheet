@@ -29,8 +29,8 @@
             </div>
             <div class="flex align-item">
               <div style="padding-right:10px;line-height: 20px;">
-                <p class="bold font-12">{{ username }}</p>
-                <p class="font-10">{{ company_name }}</p>
+                <!-- <p class="bold font-12">{{ username }}</p>
+                <p class="font-10">{{ company_name }}</p> -->
               </div>
               <div>
                 <!-- <img
@@ -64,7 +64,7 @@
           <span>Classes</span>
         </nuxt-link>
       </div>
-      <div class="navbar__parent">
+      <!-- <div class="navbar__parent">
         <nuxt-link to="/dashboard/subjects">
           <i data-feather="book-open"></i>
           <span>Subjects</span>
@@ -75,7 +75,7 @@
           <i data-feather="pen-tool"></i>
           <span>Questions</span>
         </nuxt-link>
-      </div>
+      </div> -->
 
       <p></p>
       <div class="navbar__parent">
@@ -112,12 +112,12 @@ export default {
 
   computed: {
     // active : $store.state.sidenavStatus
-    username() {
-      return this.$store.state.username;
-    },
-    company_name() {
-      return this.$store.state.company_name;
-    }
+    // username() {
+    //   return this.$store.state.username;
+    // },
+    // company_name() {
+    //   return this.$store.state.company_name;
+    // }
   },
 
   mounted() {
@@ -131,14 +131,14 @@ export default {
       vm.closeSidenav();
     });
 
-    if (this.$cookies.get("username") != undefined) {
-      this.$store.commit("username", this.$cookies.get("username"));
-      this.$store.commit("company_name", this.$cookies.get("company_name"));
-    } else {
-      console.log("cookieNot");
-      this.$store.commit("username", 0);
-      this.$store.commit("company_name", 0);
-    }
+    // if (this.$cookies.get("username") != undefined) {
+    //   this.$store.commit("username", this.$cookies.get("username"));
+    //   this.$store.commit("company_name", this.$cookies.get("company_name"));
+    // } else {
+    //   console.log("cookieNot");
+    //   this.$store.commit("username", 0);
+    //   this.$store.commit("company_name", 0);
+    // }
   },
   methods: {
     openSidenav: function() {

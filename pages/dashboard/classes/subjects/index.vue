@@ -1,9 +1,13 @@
 <template>
   <div class="navbar-spacing padding-top-30">
     <div class="holder">
+      <div class="breadcrumbs">
+        <nuxt-link to="/dashboard/classes">All Class</nuxt-link>
+        > {{currentClass}}
+      </div>
       <div class="column-padding pb-3" style="display: flex; justify-content: space-between;">
         <h2 style="display: flex; align-items: center;">All Subjects</h2>
-        <button type="button" class="btn btn-primary">+ Add New Subject</button>
+        <button v-if="allowAdd" type="button" class="btn btn-primary">+ Add New Subject</button>
       </div>
       <vue-good-table :columns="columns" :line-numbers="true" :rows="allSubjects">
         <template slot="table-row" slot-scope="props">
@@ -12,7 +16,7 @@
           </span>
           <span v-else-if="props.column.field === 'action'">
             <button
-              @click="showChapters(props.row.SubjectID)"
+              @click="showChapters(props.row.SubjectID, props.row.Name)"
               type="button"
               class="btn btn-primary"
             >View Chapter</button>
@@ -48,7 +52,9 @@ export default {
           field: "action",
           width: "200px"
         }
-      ]
+      ],
+      currentClass: this.$cookies.get("class"),
+      allowAdd :  this.$cookies.get("userType") == 'sys' ? true : false,
     };
   },
   filters: {
@@ -63,10 +69,16 @@ export default {
 
   mounted() {
     this.$store.dispatch("getAllSubjects");
+    this.$cookies.remove("subject_id");
+    this.$cookies.remove("subject_name");
   },
   methods: {
-    showChapters: function(id) {
+    showChapters: function(id, subject_name) {
       this.$cookies.set("subject_id", id, {
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7
+      });
+      this.$cookies.set("subject_name", subject_name, {
         path: "/",
         maxAge: 60 * 60 * 24 * 7
       });

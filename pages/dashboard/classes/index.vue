@@ -64,9 +64,11 @@ export default {
       ]
     };
   },
+  mounted() {
+    this.$cookies.remove("class");
+  },
   methods: {
     showSubject: function(id) {
-
       this.$cookies.set("class", id, {
         path: "/",
         maxAge: 60 * 60 * 24 * 7

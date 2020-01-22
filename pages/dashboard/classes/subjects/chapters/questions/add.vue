@@ -1,6 +1,12 @@
 <template>
   <div class="navbar-spacing padding-top-30">
     <div class="holder">
+      <div class="breadcrumbs">
+        <nuxt-link to="/dashboard/classes">All Class</nuxt-link>>
+        <nuxt-link to="/dashboard/classes/subjects">{{currentClass}}</nuxt-link>>
+        <nuxt-link to="/dashboard/classes/subjects/chapters">{{subject_name | capitalize}}</nuxt-link>
+        > {{currentChapter | capitalize}}
+      </div>
       <div class="column-padding pb-3" style="display: flex; justify-content: space-between;">
         <h2 style="display: flex; align-items: center;">Add Question</h2>
       </div>
@@ -136,7 +142,10 @@ export default {
           field: "details",
           width: "200px"
         }
-      ]
+      ],
+      subject_name: this.$cookies.get("subject_name"),
+      currentClass: this.$cookies.get("class"),
+      currentChapter: this.$cookies.get("ChapterName")
     };
   },
   filters: {
@@ -154,22 +163,38 @@ export default {
   },
   methods: {
     createQuestion: function() {
+      console.log(this.answer);
+      console.log(this.answer);
+      if (this.question == "") {
+        this.raiseError("Please Add a question");
+      } else if (
+        this.option1 == "" &&
+        this.option2 == "" &&
+        this.option3 == "" &&
+        this.option4 == ""
+      ) {
+        this.raiseError("Please add atleast one option");
+      } else if (this.answer == 0) {
+        this.raiseError("Please set correct answer");
+      } else {
+        var payload = {
+          text: this.question,
+          optionA: this.option1,
+          optionB: this.option2,
+          optionC: this.option3,
+          optionD: this.option4,
+          correctAnswer: this.answer
+        };
 
+        console.log(payload);
 
-  
-
-      var payload = {
-        text: this.question,
-        optionA: this.option1,
-        optionB: this.option2,
-        optionC: this.option3,
-        optionD: this.option4,
-        correctAnswer: this.answer
-      };
-
-      this.$store.dispatch("createQuestion", payload).then(res => {
-        this.$store.dispatch("getAllSubjects");
-      });
+        this.$store.dispatch("createQuestion", payload).then(res => {
+          this.$router.push("/dashboard/classes/subjects/chapters/questions/");
+        });
+      }
+    },
+    raiseError: function(msg) {
+      alert(msg);
     }
   }
 };
