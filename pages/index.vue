@@ -113,12 +113,12 @@ export default {
   mounted() {
     var vm = this;
 
-    $(document).keydown(function(event) {
-      // enter has keyCode = 13, change it if you want to use another button
-      if (event.keyCode == 13) {
-        vm.login();
-      }
-    });
+    // $(document).keydown(function(event) {
+    //   // enter has keyCode = 13, change it if you want to use another button
+    //   if (event.keyCode == 13) {
+    //     vm.login();
+    //   }
+    // });
     // feather.replace({ color: 'black' })
   },
   watch: {},
