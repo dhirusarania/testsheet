@@ -65,6 +65,11 @@ export default {
       allowAdd :  this.$cookies.get("userType") == 'sys' ? true : false,
       columns: [
         {
+          label: "Chapter No.",
+          field: "ChapterNumber",
+          width: "100px"
+        },
+        {
           label: "Name",
           field: "ChapterName",
           width: "100px"

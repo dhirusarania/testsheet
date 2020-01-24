@@ -230,4 +230,29 @@ export const actions = {
         })
     },
 
+    createSubject({ commit, state }, payload) {
+
+        return new Promise((resolve, reject) => {
+
+            console.log(payload)
+
+            axios({
+                    method: 'POST',
+                    url: state.api.getAllSubjects,
+                    contentType: 'application/json',
+                    data: payload,
+                    headers: {
+                        'Authorization': "Bearer " + this.$cookies.get('access_token')
+                    }
+                })
+                .then(res => {
+                    resolve(res)
+                })
+                .catch((error) => {
+                    console.log(error.response)
+                    reject(error);
+                })
+        })
+    },
+
 }
