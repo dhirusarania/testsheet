@@ -13,7 +13,7 @@
               <div class="form-group margin-top-25">
                 <input
                   id="email"
-                  type="tel"
+                  type="text"
                   v-model="username"
                   class="form-control material-input"
                   maxlength="50"
@@ -149,7 +149,7 @@ export default {
           console.log("res", res);
           console.log("response");
 
-          if (res.status == 200) {
+          if (res.data.accessToken) {
             this.$cookies.removeAll();
             this.$cookies.set("access_token", res.data.accessToken, {
               path: "/",

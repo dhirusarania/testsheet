@@ -65,6 +65,10 @@ export default {
   */
   axios: {
   },
+
+  env: {
+    baseUrl: process.env.BASE_URL
+  },
   /*
   ** Build configuration
   */
