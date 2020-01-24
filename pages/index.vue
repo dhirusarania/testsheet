@@ -47,13 +47,25 @@
               <div id="paymentContainer" name="paymentContainer" class="paymentOptions">
                 <div id="payCC" class="floatBlock">
                   <label for="paymentCC">
-                    <input id="paymentCC" name="paymentType" type="radio" v-model="userType" value="sys" /> System Admin
+                    <input
+                      id="paymentCC"
+                      name="paymentType"
+                      type="radio"
+                      v-model="userType"
+                      value="sys"
+                    /> System Admin
                   </label>
                 </div>
 
                 <div id="payInvoice" class="floatBlock">
                   <label for="paymentInv">
-                    <input id="paymentInv" name="paymentType" type="radio" v-model="userType" value="dataEntry" /> Freelancer
+                    <input
+                      id="paymentInv"
+                      name="paymentType"
+                      type="radio"
+                      v-model="userType"
+                      value="dataEntry"
+                    /> Freelancer
                   </label>
                 </div>
               </div>
@@ -172,7 +184,9 @@ export default {
         })
         .catch(err => {
           console.log(err);
-          console.log("error in request1", err.response);
+          var data = err.response.data;
+
+          alert(data);
         });
     }
   }
