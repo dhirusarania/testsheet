@@ -113,6 +113,9 @@
 
 <script>
 import { mapState } from "vuex";
+// import Quill from 'quill'
+
+// Quill.register('modules/clipboard', PlainClipboard, true)
 
 export default {
   name: "Subjects",
