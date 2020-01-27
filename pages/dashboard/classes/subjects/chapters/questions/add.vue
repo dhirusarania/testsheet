@@ -166,8 +166,15 @@ export default {
   },
   methods: {
     createQuestion: function() {
+      console.log("createQuestion");
+      console.log(this.question);
+      console.log("Answers");
       console.log(this.answer);
-      console.log(this.answer);
+      console.log("Options");
+      console.log(this.option1);
+      console.log(this.option2);
+      console.log(this.option3);
+      console.log(this.option4);
       if (this.question == "") {
         this.raiseError("Please Add a question");
       } else if (
