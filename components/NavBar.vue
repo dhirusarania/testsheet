@@ -59,6 +59,12 @@
 
       <p></p>
       <div class="navbar__parent">
+        <nuxt-link to="/dashboard/index">
+          <i data-feather="grid"></i>
+          <span>Analytics</span>
+        </nuxt-link>
+      </div>
+      <div class="navbar__parent">
         <nuxt-link to="/dashboard/classes">
           <i data-feather="square"></i>
           <span>Classes</span>

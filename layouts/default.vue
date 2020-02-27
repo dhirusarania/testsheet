@@ -148,4 +148,12 @@ table.vgt-table td {
   margin-bottom: 15px
 }
 
+.apexcharts-svg {
+  border-radius: 0 0 5px 5px;
+}
+
+.relative{
+  position: relative;
+}
+
 </style>
